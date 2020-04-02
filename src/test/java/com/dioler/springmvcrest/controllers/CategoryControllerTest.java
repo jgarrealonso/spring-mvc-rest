@@ -1,4 +1,4 @@
-package com.dioler.springmvcrest;
+package com.dioler.springmvcrest.controllers;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.dioler.springmvcrest.api.v1.model.CategoryDTO;
+import com.dioler.springmvcrest.controllers.CategoryController;
 import com.dioler.springmvcrest.services.CategoryService;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;

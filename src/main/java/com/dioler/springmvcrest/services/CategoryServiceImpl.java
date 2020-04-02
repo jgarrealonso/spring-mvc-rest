@@ -27,6 +27,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Optional<CategoryDTO> getCategoryByName(String name) {
 
-        return Optional.ofNullable(categoryMapper.categoryToCategoryDTO(categoryRepository.findByName(name)));
+        return Optional.ofNullable(categoryMapper.categoryToCategoryDTO(categoryRepository.findByName(name).orElse(null)));
     }
 }

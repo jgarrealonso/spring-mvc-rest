@@ -2,7 +2,6 @@ package com.dioler.springmvcrest.services;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -26,8 +25,6 @@ class CategoryServiceTest {
     public static final long ID = 1L;
     @Mock
     CategoryRepository categoryRepository;
-    @Mock
-    CategoryMapper categoryMapper;
 
     @InjectMocks
     CategoryServiceImpl categoryService;
@@ -58,7 +55,7 @@ class CategoryServiceTest {
         category.setId(ID);
 
         //Given
-        when(categoryRepository.findByName(anyString())).thenReturn(category);
+        when(categoryRepository.findByName(anyString())).thenReturn(Optional.ofNullable(category));
 
         //When
         CategoryDTO categoryDTO = categoryService.getCategoryByName(NAME).get();

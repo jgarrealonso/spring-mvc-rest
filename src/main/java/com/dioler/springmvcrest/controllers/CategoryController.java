@@ -1,4 +1,4 @@
-package com.dioler.springmvcrest;
+package com.dioler.springmvcrest.controllers;
 
 import com.dioler.springmvcrest.api.v1.model.CategoriesDTO;
 import com.dioler.springmvcrest.api.v1.model.CategoryDTO;
@@ -28,6 +28,6 @@ public class CategoryController {
     public ResponseEntity<CategoryDTO> getCategory(@PathVariable String name) {
         return categoryService.getCategoryByName(name)
             .map(categoryDTO -> ResponseEntity.ok(categoryDTO))
-            .orElseGet(() -> ResponseEntity.notFound().build());
+            .orElse(ResponseEntity.notFound().build());
     }
 }
