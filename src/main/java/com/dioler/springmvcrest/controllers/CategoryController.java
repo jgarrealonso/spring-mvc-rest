@@ -26,8 +26,6 @@ public class CategoryController {
 
     @GetMapping("{name}")
     public ResponseEntity<CategoryDTO> getCategory(@PathVariable String name) {
-        return categoryService.getCategoryByName(name)
-            .map(categoryDTO -> ResponseEntity.ok(categoryDTO))
-            .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.of(categoryService.getCategoryByName(name));
     }
 }

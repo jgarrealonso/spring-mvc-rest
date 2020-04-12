@@ -4,9 +4,11 @@ import com.dioler.springmvcrest.api.v1.model.CustomerDTO;
 import com.dioler.springmvcrest.api.v1.model.CustomersDTO;
 import com.dioler.springmvcrest.services.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,9 +33,7 @@ public class CustomerController {
 
     @GetMapping("{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id) {
-        return customerService.getCustomerById(id)
-            .map(customer -> ResponseEntity.ok(customer))
-            .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.of(customerService.getCustomerById(id));
     }
 
     @PostMapping
@@ -45,5 +45,9 @@ public class CustomerController {
     @PutMapping("{id}")
     public CustomerDTO replaceCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         return customerService.saveCustomer(id, customerDTO);
+    }
+    @PatchMapping("{id}")
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        return ResponseEntity.of(customerService.updateCustomer(id, customerDTO));
     }
 }

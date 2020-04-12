@@ -51,7 +51,7 @@ public class Bootstrap implements CommandLineRunner {
         fresh.setName("Fresh");
 
         Category exotic = new Category();
-        fresh.setName("Exotic");
+        exotic.setName("Exotic");
 
         Category nuts = new Category();
         nuts.setName("Nuts");

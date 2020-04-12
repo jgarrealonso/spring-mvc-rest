@@ -22,7 +22,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<CustomerDTO> getAllCustomers() {
         return customerRepository.findAll().stream()
-
             .map(customer -> {
                 CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
                 customerDTO.setCustomerUrl(URI + customer.getId());
@@ -33,7 +32,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<CustomerDTO> getCustomerById(Long id) {
-        return Optional.ofNullable(customerMapper.customerToCustomerDTO(customerRepository.findById(id).orElse(null)));
+        return customerRepository.findById(id)
+            .map(customerMapper::customerToCustomerDTO);
     }
 
     @Override
@@ -57,16 +57,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Optional<CustomerDTO> updateCustomer(Long id, CustomerDTO customerDTO) {
         return customerRepository.findById(id)
-            .map(existingCustomer ->
-                Optional.of(customerMapper.customerToCustomerDTO(customerRepository.save(
-                    Customer.builder()
-                        .id(existingCustomer.getId())
-                        .firstName(customerDTO.getFirstName())
-                        .lastName(customerDTO.getLastName())
-                        .build())
-                    )
-                )
-            )
-            .orElse(null);
+            .map(customer -> {
+                Optional.ofNullable(customerDTO.getFirstName())
+                    .ifPresent(customer::setFirstName);
+                Optional.ofNullable(customerDTO.getLastName())
+                    .ifPresent(customer::setFirstName);
+                return customerRepository.save(customer);
+            })
+            .map(customerMapper::customerToCustomerDTO);
     }
 }
