@@ -1,7 +1,11 @@
 package com.dioler.springmvcrest.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dioler.springmvcrest.api.v1.model.CustomerDTO;
@@ -25,6 +29,7 @@ class CustomerServiceTest {
     public static final long ID_1 = 71L;
     public static final long ID_2 = 72L;
     public static final String URI = "/api/v1/customers/";
+    public static final long ID = 4L;
 
     @Mock
     CustomerRepository customerRepository;
@@ -112,5 +117,13 @@ class CustomerServiceTest {
         assertEquals(ID_2, customerReplacedDTO.getId());
         assertEquals(NAME_2, customerReplacedDTO.getFirstName());
         assertEquals(SURNAME_2, customerReplacedDTO.getLastName());
+    }
+
+    @Test
+    void deleteCustomer(){
+        //Given
+        customerService.getCustomerById(ID);
+        verify(customerRepository,times(1)).findById(eq(ID));
+
     }
 }

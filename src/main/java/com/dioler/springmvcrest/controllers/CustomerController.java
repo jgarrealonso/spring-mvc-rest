@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,5 +50,10 @@ public class CustomerController {
     @PatchMapping("{id}")
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         return ResponseEntity.of(customerService.updateCustomer(id, customerDTO));
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteCustomer(@PathVariable Long id) {
+         customerService.deleteCustomerById(id);
     }
 }

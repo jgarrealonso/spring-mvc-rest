@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -140,8 +141,13 @@ public class CustomerControllerTest {
                 .content(new ObjectMapper().writeValueAsString(customerDTOIn)))
                 .andExpect(status().isOk())
             .andReturn();
-//     .andExpect(jsonPath("$.firstName",equalTo("Jorge")))
-//          .andExpect(jsonPath("$.customerUrl",equalTo("/api/v1/customers/1")));
         System.out.println(perform.getResponse().getContentAsString());
+    }
+    @Test
+    void deleteById() throws Exception {
+       mockMvc
+       .perform(delete("/api/v1/customers/1")
+           .contentType(MediaType.APPLICATION_JSON))
+           .andExpect(status().isOk());
     }
 }
